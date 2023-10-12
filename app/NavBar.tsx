@@ -20,8 +20,8 @@ const NavBar = () => {
     {label: 'Customer', href: '/customer'},
   ]
   return (
-    <nav className='  p-6 rounded-lg w-fit bg-sky-600 space-y-5'>
-      <Link href='/'><AiOutlineHome/></Link>
+    <nav className='  p-6 rounded-lg w-32 bg-sky-600 space-y-5'>
+     <ul className='hover:text-sky-400'> <Link href='/'><AiOutlineHome/></Link></ul>
       <ul className='space-y-5'>
         {links.map(link => 
         <Link //'hover:text-sky-100 rounded-md transition-colors flex'
