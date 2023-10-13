@@ -18,9 +18,10 @@ const NavBar = () => {
     {label: 'Area', href: '/area'},
     {label: 'Collection', href: '/collection'},
     {label: 'Customer', href: '/customer'},
+    {label: 'Logout', href: '/logout'}
   ]
   return (
-    <nav className='  p-6 rounded-lg w-32 bg-sky-600 space-y-5'>
+    <nav className='  p-6 rounded-lg w-32 bg-sky-600 space-y-5 '>
      <ul className='hover:text-sky-400'> <Link href='/'><AiOutlineHome/></Link></ul>
       <ul className='space-y-5'>
         {links.map(link => 
