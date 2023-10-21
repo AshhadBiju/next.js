@@ -13,6 +13,7 @@ const Agents = () => {
       try {
         const response = await axios.get('http://localhost:3001/api/users/getall', { headers: { 'Cache-Control': 'no-store' } });
         setUsersData(response.data.rows);
+        localStorage.setItem('dataId', response.data.id);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -43,11 +44,12 @@ const Agents = () => {
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.email}</td>
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.role}</td>
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.phoneNumber}</td>
-                
-                <td className='hover:text-sky-400 transition-colors p-2'><AiOutlineEdit /></td>
+               <Link href={`/updateagent?id=${btoa(data.id)}`}  className='hover:text-sky-400 transition-colors p-2'><AiOutlineEdit /></Link>
+
                 <td className='hover:text-sky-400 transition-colors p-2'><MdDeleteOutline /></td>
+                
               </tr>
-            ))}
+            ))}   
           </tbody>
         </table>
       </div>
