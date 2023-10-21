@@ -17,10 +17,12 @@ const NavBar = () => {
     { label: 'Area', href: '/area' },
     { label: 'Collection', href: '/collection' },
     { label: 'Customer', href: '/customer' },
+    { label: 'Login', href: '/login' },
+
   ];
 
   return (
-    <nav className='p-6 rounded-lg w-32 bg-sky-500 space-y-5'>
+    <nav className='p-6 rounded-lg w-32 h-screen bg-sky-500 space-y-5'>
       <ul className='hover:text-sky-400'>
         <Link href='/'><AiOutlineHome /></Link>
       </ul>
@@ -38,10 +40,10 @@ const NavBar = () => {
             {link.label}
           </Link>
         ))}
-        <button className='bg-sky-600 text-black p-2 rounded-lg absolute bottom-7 hover:text-white transition-colors'>Logout</button>
+        <button className=' text-black p-2 rounded-lg absolute bottom-7 hover:text-white transition-colors'>Logout</button>
       </ul>
     </nav>
-  );
+  );//
 };
 
 export default NavBar;

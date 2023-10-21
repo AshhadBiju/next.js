@@ -1,11 +1,11 @@
-'use client'
+
 import React from 'react';
 import 'tailwindcss/tailwind.css';
 const plans = async () => {
   const res = await fetch('http://localhost:3001/api/area/getall', { cache: 'no-store' }); // fetch gives a promise, so use const res = await
   console.log(res);//table table-zebra absolute top-24 left-40
 
-  const areax  = await res.json();
+  const area  = await res.json();
 
   return (
     <div>
@@ -20,7 +20,7 @@ const plans = async () => {
             </tr>
           </thead>
           <tbody>
-            {area.map((data) => (
+            {area&&area.area.map((data) => (
               <tr key={data.id}>
                 <td>{data.city}</td>
                 <td>{data.state}</td>
