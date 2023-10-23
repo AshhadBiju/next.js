@@ -4,7 +4,7 @@ import axios from 'axios';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { MdDeleteOutline } from 'react-icons/md';
 import Link from 'next/link';
-
+//import deleteUser from '../components/deleteagent'
 const Agents = () => {
   const [usersData, setUsersData] = useState([]);
 
@@ -22,6 +22,24 @@ const Agents = () => {
     fetchData();
   }, []);
 
+  const deleteUser = async (id) => {
+    try {
+      const response = await axios.delete(`http://localhost:3001/api/users/delete/${id}`);
+      console.log(`res=${response.status}`);
+      if (response === 200) {
+        // The user was successfully deleted.
+        console.log(`User ${id} has been deleted.`);
+      } else {
+        // Handle any errors that occur during the API call.
+        console.error(`Failed to delete user ${id}`);
+      }
+    } catch (error) {
+      // Handle network errors or other exceptions.
+      console.error(`An error occurred: ${error.message}`);
+    }
+  };
+  
+ 
   return (
     <div>
       <Link  href='/createagent'className='bg-sky-600 text-black p-2 rounded-lg absolute top-4 right-40 hover:text-white transition-colors'>Create Agents</Link >
@@ -34,6 +52,7 @@ const Agents = () => {
               <th className="bg-sky-500 py-3 text-white">EMAIL</th>
               <th className="bg-sky-500 py-3 text-white">ROLE</th>
               <th className="bg-sky-500 py-3 text-white">PHONE NUMBER</th>
+              <th className="bg-sky-500 py-3 text-white">ACTIONS</th>
               
             </tr>
           </thead>
@@ -44,10 +63,10 @@ const Agents = () => {
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.email}</td>
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.role}</td>
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.phoneNumber}</td>
-               <Link href={`/updateagent?id=${btoa(data.id)}`}  className='hover:text-sky-400 transition-colors p-2'><AiOutlineEdit /></Link>
-
-                <td className='hover:text-sky-400 transition-colors p-2'><MdDeleteOutline /></td>
-                
+                <td className='py-3 px-6 hover-bg-sky-500 cursor-pointer duration-300 hover:scale-90'>
+                <Link href={`/updateagent?id=${data.id}`} className='hover:text-sky-400 transition-colors p-2'><AiOutlineEdit /></Link>
+                <button className='hover:text-sky-400 transition-colors p-2' onClick={() => deleteUser(data.id)}><MdDeleteOutline /></button>
+              </td>
               </tr>
             ))}   
           </tbody>
@@ -58,3 +77,4 @@ const Agents = () => {
 };
 
 export default Agents;
+
