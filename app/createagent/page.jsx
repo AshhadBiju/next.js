@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import CreateAgent from '../components/createagentform';
+import CreateAgent from '../components/createagentform[id]';
 
 const CreateAgentPage = () => {
   return (

@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { MdDeleteOutline } from 'react-icons/md';
 import Link from 'next/link';
@@ -47,7 +48,7 @@ const Agents = () => {
     }
   };
   
- 
+ const router = useRouter();
   return (
     <div>
       <Link  href='/createagent'className='bg-sky-600 text-black p-2 rounded-lg absolute top-4 right-40 hover:text-white transition-colors'>Create Agents</Link >
@@ -73,11 +74,10 @@ const Agents = () => {
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.role}</td>
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.phoneNumber}</td>
                 <td className='py-3 px-6 hover-bg-sky-500 cursor-pointer duration-300 hover:scale-90'>
-                <Link href={`/updateagent?id=${data.id}`} className='hover:text-sky-400 transition-colors p-2'><AiOutlineEdit /></Link>
+                <Link  className='hover:text-sky-400 transition-colors p-2'href={`/agents/update/${data.id}`}> <AiOutlineEdit /></Link>
                 <button className='hover:text-sky-400 transition-colors p-2' onClick={() => deleteUser(data.id, data.name)}><MdDeleteOutline /></button>
-                <ToastContainer autoClose={3000} /> {/* Add this line to display toasts */}
               </td>
-              </tr>
+              </tr>//href={`/updateagent?id=${data.id}`}<ToastContainer autoClose={3000} /> {/* Add this line to display toasts */}
             ))}   
           </tbody>
         </table>
