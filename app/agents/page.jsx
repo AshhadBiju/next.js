@@ -4,6 +4,8 @@ import axios from 'axios';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { MdDeleteOutline } from 'react-icons/md';
 import Link from 'next/link';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //import deleteUser from '../components/deleteagent'
 const Agents = () => {
   const [usersData, setUsersData] = useState([]);
@@ -22,19 +24,25 @@ const Agents = () => {
     fetchData();
   }, []);
 
-  const deleteUser = async (id) => {
+  const deleteUser = async (id, name) => {
     try {
       const response = await axios.delete(`http://localhost:3001/api/users/delete/${id}`);
       console.log(`res=${response.status}`);
-      if (response === 200) {
+      if (response.status === 200) {
         // The user was successfully deleted.
-        console.log(`User ${id} has been deleted.`);
+        toast.success(`User ${name} has been deleted.`);
+        console.log(`User ${name} has been deleted.`);
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000); // Reload the page after 3 seconds
       } else {
         // Handle any errors that occur during the API call.
-        console.error(`Failed to delete user ${id}`);
+        toast.error(`Failed to delete user ${name}`);
+        console.error(`Failed to delete user ${name}`);
       }
     } catch (error) {
       // Handle network errors or other exceptions.
+      toast.error(`An error occurred: ${error.message}`);
       console.error(`An error occurred: ${error.message}`);
     }
   };
@@ -59,13 +67,15 @@ const Agents = () => {
           <tbody className='text-cyan-900 text-center'>
             {usersData && usersData.map((data) => (
               <tr key={data.id}>
+                
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.name}</td>
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.email}</td>
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.role}</td>
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.phoneNumber}</td>
                 <td className='py-3 px-6 hover-bg-sky-500 cursor-pointer duration-300 hover:scale-90'>
                 <Link href={`/updateagent?id=${data.id}`} className='hover:text-sky-400 transition-colors p-2'><AiOutlineEdit /></Link>
-                <button className='hover:text-sky-400 transition-colors p-2' onClick={() => deleteUser(data.id)}><MdDeleteOutline /></button>
+                <button className='hover:text-sky-400 transition-colors p-2' onClick={() => deleteUser(data.id, data.name)}><MdDeleteOutline /></button>
+                <ToastContainer autoClose={3000} /> {/* Add this line to display toasts */}
               </td>
               </tr>
             ))}   
