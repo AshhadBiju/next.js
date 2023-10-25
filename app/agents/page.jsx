@@ -74,7 +74,7 @@ const Agents = () => {
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.role}</td>
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.phoneNumber}</td>
                 <td className='py-3 px-6 hover-bg-sky-500 cursor-pointer duration-300 hover:scale-90'>
-                <Link  className='hover:text-sky-400 transition-colors p-2'href={`/agents/update/${data.id}`}> <AiOutlineEdit /></Link>
+                <Link  className='hover:text-sky-400 transition-colors p-2'href={`/updateagent/${data.id}`}> <AiOutlineEdit /></Link>
                 <button className='hover:text-sky-400 transition-colors p-2' onClick={() => deleteUser(data.id, data.name)}><MdDeleteOutline /></button>
               </td>
               </tr>//href={`/updateagent?id=${data.id}`}<ToastContainer autoClose={3000} /> {/* Add this line to display toasts */}
