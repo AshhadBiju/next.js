@@ -18,6 +18,8 @@ export default function UpdateAgent({
   const [newPassword, setnewPassword] = useState(password);
   const [newPhoneNumber, setnewPhoneNumber] = useState(phonenumber);
   const [newID, setId] = useState(id);
+  
+  
   const router = useRouter(); //just before the handleSubmit where the agent updated response is stored
 
   // const handleChange = (e) => {
@@ -54,7 +56,6 @@ export default function UpdateAgent({
         )
         .then((result) => {
           console.log(`responEditresult=${result.status}`);
-          console.log(`responEditresult=${result.data.name}`);
         })
         .catch((error) => {
           console.log(`responEditerror=${error}`);

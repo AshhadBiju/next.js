@@ -57,12 +57,12 @@ const Agents = () => {
         <table className='shadow-2xl divide-gray-200 border-2 border-cyan-200 w-6/12 overflow-hidden bg-sky-200'>
           <thead className="text-white">
             <tr>
+              
               <th className="bg-sky-500 py-3 text-white">NAME</th>
               <th className="bg-sky-500 py-3 text-white">EMAIL</th>
               <th className="bg-sky-500 py-3 text-white">ROLE</th>
-              <th className="bg-sky-500 py-3 text-white">PHONE NUMBER</th>
+              <th className="bg-sky-500 py-3 text-white">PHONENUMBER</th>
               <th className="bg-sky-500 py-3 text-white">ACTIONS</th>
-              
             </tr>
           </thead>
           <tbody className='text-cyan-900 text-center'>
