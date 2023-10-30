@@ -17,7 +17,7 @@ export default async function EditArea({ params }) {
 const getAreaById = async (idn) => {
   try {
     console.log(`idid=${idn}`);
-    const url = `http://localhost:3001/api/users/getuser/${idn}`;
+    const url = `http://localhost:3001/api/area/getarea/${idn}`;
     const res = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
@@ -27,17 +27,17 @@ const getAreaById = async (idn) => {
     console.log(`res=${res}`);
 
     if (!res.data) {
-      throw new Error("Failed to fetch Agent");
+      throw new Error("Failed to fetch area");
     }
 
-    const agent = res.data;
+    const area = res.data;
 
-    if (!agent) {
-      console.error("Agent data is undefined");
+    if (!area) {
+      console.error("area data is undefined");
       // Handle the error appropriately, e.g., display an error message to the user.
     }
 
-    const { id, city, state, district, pincode, } = agent;
+    const { id, city, state, district, pincode, } = area;
     console.log(`name=${id}`);
 
     return {

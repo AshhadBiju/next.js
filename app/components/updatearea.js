@@ -33,7 +33,7 @@ export default function UpdateArea({
     try {
       const res = axios
         .put(
-          `http://localhost:3001/api/area/${id}`,
+          `http://localhost:3001/api/area/updatearea/${id}`,
           {
             city: newCity,
             state: newState,
