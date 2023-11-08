@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import axios from "axios"; // Import Axios
 import { useRouter } from "next/navigation";
-import { toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function UpdateAgent({
   id,
@@ -21,18 +22,16 @@ export default function UpdateAgent({
   const [newPhoneNumber, setnewPhoneNumber] = useState(phonenumber);
   const [newID, setId] = useState(id);
   
-  
   const router = useRouter(); //just before the handleSubmit where the agent updated response is stored
-
-  // const handleChange = (e) => {
-  //  const { name, value } = e.target;
-  // setFormData({ ...formData, [name]: value });
-  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Send a POST request to your API to Update the agent using Axios
-    console.log(`id=${id}, ${newUserName}`);
+    const token = localStorage.getItem('token');
+    if (!token) {
+      // Handle the case when the token is not available (user is not logged in)
+      console.error('Token not found. User is not logged in.');
+      return;
+  }
     try {
       const res = axios
         .put(
@@ -47,27 +46,25 @@ export default function UpdateAgent({
           {
             headers: {
               "Content-Type": "application/json",
+              'Authorization': `Bearer ${token}`
             },
-            // body: JSON.stringify({
-            //   newUserName,
-            //   newName,
-            //   newEmail,
-            //   newPassword,
-            // }),
           }
         )
         .then((result) => {
           console.log(`responEditresult=${result.status}`);
+          toast.success(`Agent has been updated`);
+          setTimeout(() => {
+            router.push('/agents');
+          }, 3000); // 3000 milliseconds = 3 seconds
+        
         })
         .catch((error) => {
           console.log(`responEditerror=${error}`);
         });
+
       console.log(`responEdit=${res.status}`);
-      // if (!res.status.ok) {
-      //   console.log("Agent NOT updated:", res.data);
-      //   toast.failed("Agent has been updated"); // You can handle success or display a success message here. import { toast, ToastContainer } from 'react-toastify' also.
-      // }
       router.push("/agents"); //this is the code to redirect to agents page. SET ALWAYS IN RESPONSE. Set a timeout to redirect as well. import this before handlesubmit const router = useRouter(); and this import { useRouter } from 'next/navigation';
+    
     } catch (error) {
       console.error("Error updating agent:", error);
       // Handle the error and display an error message if needed
@@ -78,7 +75,17 @@ export default function UpdateAgent({
     <form
       onSubmit={handleSubmit}
       className="absolute right-20 top-20 shadow-2xl bg-sky-200"
-    >
+    ><ToastContainer />
+       <div>
+        <label>Username:</label>
+        <input
+          onChange={(e) => setnewUserName(e.target.value)}
+          value={newUserName}
+          type="text"
+          placeholder="Username"
+          required
+        />
+      </div>
       <div>
         <label>Name:</label>
         <input
@@ -96,16 +103,6 @@ export default function UpdateAgent({
           value={newPassword}
           type="password"
           placeholder="Password"
-          required
-        />
-      </div>
-      <div>
-        <label>Username:</label>
-        <input
-          onChange={(e) => setnewUserName(e.target.value)}
-          value={newUserName}
-          type="text"
-          placeholder="Username"
           required
         />
       </div>
@@ -128,9 +125,8 @@ export default function UpdateAgent({
           placeholder="Phone-number"
         />
       </div>
-      <button className="bg-sky-700" type="submit">
-        Update Agent
-      </button>
+      <button className="bg-sky-700" type="submit">Update Agent</button>
+      <ToastContainer /> 
     </form>
   );
 }

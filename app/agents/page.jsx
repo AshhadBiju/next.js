@@ -20,6 +20,7 @@ const Agents = () => {
         );
         setUsersData(response.data.rows);
         localStorage.setItem("dataId", response.data.id);
+        
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -29,9 +30,21 @@ const Agents = () => {
   }, []);
 
   const deleteUser = async (id, name) => {
+    const token = localStorage.getItem('token');
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+        'Authorization': `Bearer ${token}`
+      }
+    };
+
+    
     try {
       const response = await axios.delete(
-        `http://localhost:3001/api/users/delete/${id}`
+        `http://localhost:3001/api/users/delete/${id}`, 
+        config
       );
       console.log(`res=${response.status}`);
       if (response.status === 200) {

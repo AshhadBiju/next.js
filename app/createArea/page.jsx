@@ -1,14 +1,14 @@
 import Head from 'next/head';
-import CreateAgent from '../components/createAgent'
+import CreateArea from '../components/createAreaForm';
 
 const CreateAreaForm = () => {
   return (
     <div>
       <Head>
-        <title>Create Agent</title>
+        <title>Create Area</title>
       </Head>
-      <h1>Create Agent</h1>
-      <CreateAgent />
+      <h1>Create Area</h1>
+      <CreateArea />
     </div>
   );
 };

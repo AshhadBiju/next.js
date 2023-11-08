@@ -10,9 +10,14 @@ export default function LoginForm() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleLoginSuccess = async (token) => {
+    console.log('Handling login success');
+    localStorage.setItem('token', token);
+    alert('Logged in successfully!');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Send a POST request to your back-end with formData (username and password)
     try {
       const response = await fetch('http://localhost:3001/api/users/login', {
         method: 'POST',
@@ -23,12 +28,11 @@ export default function LoginForm() {
       });
 
       if (response.ok) {
-        // Handle successful login, e.g., save the token and user data
         const data = await response.json();
-        alert("Logged in successfully !");
+        handleLoginSuccess(data.token); // Save the token
         console.log('Successful login', data);
+        handleLoginSuccess(data.token);
       } else {
-        // Handle login errors, e.g., display an error message
         console.error('Login failed');
       }
     } catch (error) {

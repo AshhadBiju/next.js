@@ -28,12 +28,12 @@ const Area = () => {
 
   const deleteArea = async (id, city) => {
     try {
-      const response = await axios.delete(`http://localhost:3001/api/area/deletearea/${id}`);
+      const response = await axios.delete(`http://localhost:3001/api/area/delete/${id}`);
       console.log(`res=${response.status}`);
       if (response.status === 200) {
         // The Area was successfully deleted.
-        toast.success(`Area ${city} has been deleted.`);
-        console.log(`Area ${city} has been deleted.`);
+        toast.success(`Area has been deleted.`);
+        console.log(`Area has been deleted.`);
         setTimeout(() => {
           window.location.reload();
         }, 3000); // Reload the page after 3 seconds
@@ -52,7 +52,8 @@ const Area = () => {
  const router = useRouter();
   return (
     <div>
-      <Link href='/createarea' className='bg-sky-600 text-black p-2 rounded-lg absolute top-4 right-40 hover:text-white transition-colors'>Create Area</Link>
+      <Link href='/createArea' className='bg-sky-600 text-black p-2 rounded-lg absolute top-4 right-40 hover:text-white transition-colors'>Create Area</Link>
+     
       <h1 className='absolute top-5 left-40'>Area</h1>
       <div className='flex justify-center items-center'>
         <table className='shadow-2xl divide-gray-200 border-2 border-cyan-200 w-6/12 overflow-hidden bg-sky-200'>
@@ -80,11 +81,13 @@ const Area = () => {
                 <Link  className='hover:text-sky-400 transition-colors p-2'href={`/updatearea/${data.id}`}> <AiOutlineEdit /></Link>
                 <button className='hover:text-sky-400 transition-colors p-2' onClick={() => deleteArea(data.id, data.city)}><MdDeleteOutline /></button>
               </td>
-              </tr>//href={`/updateagent?id=${data.id}`}<ToastContainer autoClose={3000} /> {/* Add this line to display toasts */}
-            ))}   
+              </tr>//
+            ))} 
+
           </tbody>
         </table>
       </div>
+      <ToastContainer autoClose={3000} /> {/* Add this line to display toasts */}
     </div>
   );
 };

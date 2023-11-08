@@ -15,6 +15,7 @@ export default async function EditAgents({ params }) {
   return <UpdateAgent {...agentData} />;
 }
 const getAgentById = async (idn) => {
+  const token = localStorage.getItem('token');
   try {
     console.log(`idid=${idn}`);
     const url = `http://localhost:3001/api/users/getuser/${idn}`;
@@ -22,6 +23,7 @@ const getAgentById = async (idn) => {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",
+        'Authorization': `Bearer ${token}`
       },
     });
     console.log(`res=${res}`);

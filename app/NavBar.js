@@ -41,7 +41,7 @@ const NavBar = () => {
             {link.label}
           </Link>
         ))}
-        <button className=" text-black p-2 rounded-lg absolute bottom-6 hover:text-white transition-colors">
+        <button className=" text-black p-2 rounded-lg  hover:text-white transition-colors">
           Logout
         </button>
       </ul>

@@ -4,20 +4,21 @@ import axios from "axios"; // Import Axios
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 
-export default function UpdateArea({
-  id,
-  city,
-  state,
-  district,
-  pincode,
-  userID,
+export default function UpdateCollectionForm({
+        id,
+        amount,
+        description,
+        date,
+        customerID,
+        userID,  
 }) {
-  const [newDistrict, setnewDistrict] = useState(district);
-  const [newCity, setnewCity] = useState(city);
-  const [newState, setnewState] = useState(state);
-  const [newPincode, setnewPincode] = useState(pincode);
-  
+  const [newAmount, setnewAmount] = useState(amount);
+  const [newDescription, setnewDescription] = useState(description);
+  const [newDate, setnewDate] = useState(date);
+ 
+
   const router = useRouter(); //just before the handleSubmit where the area updated response is stored
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,17 +28,17 @@ export default function UpdateArea({
       console.error('Token not found. User is not logged in.');
       return;
   }
-    console.log(`id=${id}, ${newCity}`);
-    try {
+    console.log(`id=${id}, ${customerID}  ${userID}`);
+   // try {
       const res = axios
         .put(
-          `http://localhost:3001/api/area/update/${id}`,
+          `http://localhost:3001/api/collection/update/${id}`,
           {
-            city: newCity,
-            state: newState,
-            district: newDistrict,
-            pincode: newPincode,
-            userID,
+            amount: newAmount,
+            description: newDescription,
+            date: newDate,
+            customerID:customerID,
+            userID:userID,  
           },
           {
             headers: {
@@ -48,19 +49,20 @@ export default function UpdateArea({
         )
         .then((result) => {
           console.log(`responEditresult=${result.status}`);
-          toast.success('Area updated');
+          toast.success('Collection updated');
           setTimeout(() => {
-              router.push('/area');
+              router.push('/collection');
             }, 3000); // 3000 milliseconds = 3 seconds
         })
         .catch((error) => {
-          console.log(`responEditerror=${error}`);
+          console.log(`responEditerror=${error} ${res}`);
         });
       console.log(`responEdit=${res.status}`);
-    } catch (error) {
-      console.error("Error updating area:", error);
-      // Handle the error and display an error message if needed
-    }
+    
+    // } catch (error) {
+    //   console.error("Error updating collection:", error);
+  
+    // }
   };
 
   return (
@@ -69,54 +71,52 @@ export default function UpdateArea({
       className="absolute right-20 top-20 shadow-2xl bg-sky-200"
     >
       <div>
-        <label>City:</label>
+        <label>Date:</label>
         <input
-          onChange={(e) => setnewCity(e.target.value)}
-          value={newCity}
+          onChange={(e) => setnewDate(e.target.value)}
+          value={newDate}
           type="text"
-          placeholder="City"
-          required
+          placeholder="Date"  
+
         />
       </div>
       <div>
-        <label>District:</label>
+        <label>Description:</label>
         <input
-          onChange={(e) => setnewDistrict(e.target.value)}
-          value={newDistrict}
+          onChange={(e) => setnewDescription(e.target.value)}
+          value={newDescription}
           type="text"
-          placeholder="District"
-          required
+          placeholder="Description"
+         
         />
       </div>
       <div>
-        <label>State:</label>
+        <label>Amount:</label>
         <input
-          onChange={(e) => setnewState(e.target.value)}
-          value={newState}
+          onChange={(e) => setnewAmount(e.target.value)}
+          value={newAmount}
           type="text"
-          placeholder="State"
-          required
-        />
-      </div>
-      <div>
-        <label>Pincode:</label>
-        <input
-          onChange={(e) => setnewPincode(e.target.value)}
-          value={newPincode}
-          type="text"
-          placeholder="Pincode"
-          required
+          placeholder="Amount"
+          
         />
       </div>
       <div>
         <label>User ID:</label>
         <input
-          defaultValue={userID} // Display the current userID
+          defaultValue={userID} 
           type="text"
           disabled
         />
       </div>
-      <button className="bg-sky-700" type="submit">Update Area</button>
+      <div>
+        <label>Customer ID:</label>
+        <input
+          defaultValue={customerID} 
+          type="text"
+          disabled
+        />
+      </div>
+      <button className="bg-sky-700" type="submit">Update Collection</button>
       <ToastContainer /> 
     </form>
   );
