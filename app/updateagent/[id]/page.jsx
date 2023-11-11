@@ -14,8 +14,9 @@ export default async function EditAgents({ params }) {
 
   return <UpdateAgent {...agentData} />;
 }
+
+
 const getAgentById = async (idn) => {
-  const token = localStorage.getItem('token');
   try {
     console.log(`idid=${idn}`);
     const url = `http://localhost:3001/api/users/getuser/${idn}`;
@@ -23,7 +24,6 @@ const getAgentById = async (idn) => {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",
-        'Authorization': `Bearer ${token}`
       },
     });
     console.log(`res=${res}`);
@@ -39,7 +39,7 @@ const getAgentById = async (idn) => {
       // Handle the error appropriately, e.g., display an error message to the user.
     }
 
-    const { id, name, password, username, email, phonenumber } = agent;
+    const { id, name, password, username, email, phoneNumber } = agent;
     console.log(`name=${id}`);
 
     return {
@@ -48,7 +48,7 @@ const getAgentById = async (idn) => {
       password,
       username,
       email,
-      phonenumber,
+      phoneNumber,
     };
   } catch (error) {
     console.error("Error fetching agent data:", error);

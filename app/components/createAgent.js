@@ -54,55 +54,59 @@ const CreateAgent = () => {
   };
 
   return (
-    <form className='absolute right-20 top-20 shadow-2xl bg-sky-200' onSubmit={handleSubmit}>
-      <div>
+    <form  onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-sky-300  rounded-md shadow-md text-[#181818]">
+      <div className="mb-4">
         <label>Username:</label>
         <input
           type="text"
           name="username"
           value={formData.username}
           onChange={handleChange}
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
+      <div className="mb-4">
         <label>Name:</label>
         <input
           type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
+      <div className="mb-4">
         <label>Password:</label>
         <input
           type="password"
           name="password"
           value={formData.password}
           onChange={handleChange}
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
+      <div className="mb-4">
         <label>Email:</label>
         <input
           type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
+      <div className="mb-4">
         <label>Phone Number:</label>
         <input
           type="text"
           name="phoneNumber"
           value={formData.phoneNumber}
           onChange={handleChange}
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <button className='bg-sky-700' type="submit">Create Agent</button>
+      <button className="w-full py-2 text-white bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600" type="submit">Create Agent</button>
       <ToastContainer /> 
-      
     </form>
   );
 };

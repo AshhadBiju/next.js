@@ -54,58 +54,63 @@ const CreateCollection = () => {
   };
 
   return (
-    <form className='right-20 text-[#181818]  shadow-2xl bg-sky-200' onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-sky-300  rounded-md shadow-md text-[#181818]">
       <div>
-        <label>Description:</label>
+        <label  className="block text-gray-700">Description:</label>
         <input
           type="text"
           name="description"
           value={formData.description}
           onChange={handleChange}
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
       <div>
-        <label>Amount:</label>
+        <label  className="block text-gray-700">Amount:</label>
         <input
           type="text"
           name="amount"
           value={formData.amount}
           onChange={handleChange}
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
       <div>
-        <label>Date:</label>
+        <label  className="block text-gray-700">Date:</label>
         <input
           type="text"
           name="date"
           value={formData.date}
           onChange={handleChange}
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
       <div>
-        <label>Customer ID:</label>
+        <label className="block text-gray-700">Customer ID:</label>
         <input
           type="text"
           name="customerID"
           value={formData.customerID}
           onChange={handleChange}
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
       <div>
-        <label>User ID</label>
+        <label className="block text-gray-700">User ID</label>
         <input
           type="text"
           name="userID"
           value={formData.userID}
           onChange={handleChange}
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <button className='bg-sky-700' type="submit" >Create Collection</button>
+      <button className="w-full py-2 text-white bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600" type="submit">Create Collection</button>
       <ToastContainer/>
     </form>
   );

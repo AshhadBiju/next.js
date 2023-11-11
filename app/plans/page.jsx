@@ -30,25 +30,40 @@ const Plans = () => {
   }, []);
 
   const deletePlan = async (id, city) => {
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+        'Authorization': `Bearer ${token}`
+      }
+    };
+
+    const shouldDelete = window.confirm(`Are you sure you want to          delete Plan ${city}?`);
+
+    if (!shouldDelete) {
+      return; 
+    }
     try {
       const response = await axios.delete(
-        `http://localhost:3001/api/plans/delete/${id}`
+        `http://localhost:3001/api/plans/delete/${id}`, 
+        config
       );
       console.log(`res=${response.status}`);
       if (response.status === 200) {
-        // The Planwas successfully deleted.
-        toast.success(`Plan has been deleted.`);
-        console.log(`Plan has been deleted.`);
+       
+        toast.success(`Plan ${city} has been deleted.`);
+       
+ console.log(`Plan ${city} has been deleted.`);
         setTimeout(() => {
           window.location.reload();
-        }, 3000); // Reload the page after 3 seconds
-      } else {
-        // Handle any errors that occur during the API call.
-        toast.error(`Failed to delete Plan${city}`);
-        console.error(`Failed to delete Plan${city}`);
+        }, 3000); 
+     
+ } else {
+        toast.error(`Failed to delete plan ${city}`);
+        console.error(`Failed to delete plan ${city}`);
       }
     } catch (error) {
-      // Handle network errors or other exceptions.
       toast.error(`An error occurred: ${error.message}`);
       console.error(`An error occurred: ${error.message}`);
     }

@@ -8,15 +8,29 @@ import Link from "next/link";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 //import deleteUser from '../components/deleteagent'
+
 const Agents = () => {
   const [usersData, setUsersData] = useState([]);
-
+  const router = useRouter();
+  
+ 
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          // Display an error message or toast if there is no token
+          toast.error('Please log in first.');
+          // You may also redirect the user to the login page
+          return;
+        }
         const response = await axios.get(
           "http://localhost:3001/api/users/getall",
-          { headers: { "Cache-Control": "no-store" } }
+          { headers: { 
+          "Cache-Control": "no-store" , 
+          'Authorization': `Bearer ${token}` 
+        } }
         );
         setUsersData(response.data.rows);
         localStorage.setItem("dataId", response.data.id);
@@ -29,9 +43,9 @@ const Agents = () => {
     fetchData();
   }, []);
 
+ 
   const deleteUser = async (id, name) => {
     const token = localStorage.getItem('token');
-
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -41,6 +55,11 @@ const Agents = () => {
     };
 
     
+    const shouldDelete = window.confirm(`Are you sure you want to delete user ${name}?`);
+
+    if (!shouldDelete) {
+      return; // Cancel deletion if the user clicks "Cancel" in the confirmation dialog.
+    }
     try {
       const response = await axios.delete(
         `http://localhost:3001/api/users/delete/${id}`, 
@@ -66,7 +85,9 @@ const Agents = () => {
     }
   };
 
-  const router = useRouter();
+
+
+
   return (
     <div>
       <Link
@@ -120,11 +141,12 @@ const Agents = () => {
                       <MdDeleteOutline />
                     </button>
                   </td>
-                </tr> //href={`/updateagent?id=${data.id}`}<ToastContainer autoClose={3000} /> {/* Add this line to display toasts */}
+                </tr> 
               ))}
           </tbody>
         </table>
       </div>
+      <ToastContainer autoClose={3000} /> {/* Add this line to display toasts */}
     </div>
   );
 };

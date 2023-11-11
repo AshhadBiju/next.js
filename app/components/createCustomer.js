@@ -56,78 +56,85 @@ const CreateCustomerForm = () => {
   };
 
   return (
-    <form className='right-20 text-[#181818]  shadow-2xl bg-sky-200' onSubmit={handleSubmit}>
-      <div>
-        <label>Name:</label>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-sky-300  rounded-md shadow-md text-[#181818]">
+      <div className="mb-4">
+        <label className="block text-gray-700">Name:</label>
         <input
           type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>Mobile Number:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">Mobile Number:</label>
         <input
           type="text"
           name="mobileNumber"
           value={formData.mobileNumber}
           onChange={handleChange}
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>Register Number:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">Register Number:</label>
         <input
           type="text"
           name="registerNumber"
           value={formData.registerNumber}
           onChange={handleChange}
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>Address:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">Address:</label>
         <input
           type="text"
           name="address"
           value={formData.address}
           onChange={handleChange}
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>User ID:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">User ID:</label>
         <input
           type="text"
           name="userID"
           value={formData.userID}
           onChange={handleChange}
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>Area ID:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">Area ID:</label>
         <input
           type="text"
           name="areaID"
           value={formData.areaID}
           onChange={handleChange}
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>Plan ID:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">Plan ID:</label>
         <input
           type="text"
           name="planID"
           value={formData.planID}
           onChange={handleChange}
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <button className='bg-sky-700' type="submit" >Create Customer</button>
+      <button className="w-full py-2 text-white bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600" type="submit">Create Customer</button>
       <ToastContainer/>
     </form>
   );

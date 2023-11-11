@@ -27,27 +27,43 @@ const Area = () => {
   }, []);
 
   const deleteArea = async (id, city) => {
-    try {
-      const response = await axios.delete(`http://localhost:3001/api/area/delete/${id}`);
-      console.log(`res=${response.status}`);
-      if (response.status === 200) {
-        // The Area was successfully deleted.
-        toast.success(`Area has been deleted.`);
-        console.log(`Area has been deleted.`);
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000); // Reload the page after 3 seconds
-      } else {
-        // Handle any errors that occur during the API call.
-        toast.error(`Failed to delete Area ${city}`);
-        console.error(`Failed to delete Area ${city}`);
-      }
-    } catch (error) {
-      // Handle network errors or other exceptions.
-      toast.error(`An error occurred: ${error.message}`);
-      console.error(`An error occurred: ${error.message}`);
+      const token = localStorage.getItem('token');
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-store',
+          'Authorization': `Bearer ${token}`
+        }
+      };
+      const shouldDelete = window.confirm(`Are you sure you want to delete area ${city}?`);
+
+      if (!shouldDelete) {
+      return; // Cancel deletion if the user clicks "Cancel" in the confirmation dialog.
     }
-  };
+      try {
+        const response = await axios.delete(
+          `http://localhost:3001/api/area/delete/${id}`, 
+          config
+        );
+        console.log(`res=${response.status}`);
+        if (response.status === 200) {
+          // The area was successfully deleted.
+          toast.success(`Area ${city} has been deleted.`);
+          console.log(`Area ${city} has been deleted.`);
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000); // Reload the page after 3 seconds
+        } else {
+          // Handle any errors that occur during the API call.
+          toast.error(`Failed to delete Area ${city}`);
+          console.error(`Failed to delete Area ${city}`);
+        }
+      } catch (error) {
+        // Handle network errors or other exceptions.
+        toast.error(`An error occurred: ${error.message}`);
+        console.error(`An error occurred: ${error.message}`);
+      }
+    };
   
  const router = useRouter();
   return (

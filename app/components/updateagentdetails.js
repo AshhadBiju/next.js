@@ -11,22 +11,23 @@ export default function UpdateAgent({
   password,
   username,
   email,
-  phonenumber,
+  phoneNumber,
 }) {
 
-  
   const [newUserName, setnewUserName] = useState(username);
   const [newName, setnewName] = useState(name);
   const [newEmail, setnewEmail] = useState(email);
   const [newPassword, setnewPassword] = useState(password);
-  const [newPhoneNumber, setnewPhoneNumber] = useState(phonenumber);
-  const [newID, setId] = useState(id);
+  const [newPhoneNumber, setnewPhoneNumber] = useState(phoneNumber);
+  //const [newID, setId] = useState(id);
   
   const router = useRouter(); //just before the handleSubmit where the agent updated response is stored
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
+    console.log(handleSubmit);
+    console.log('Token:', token);
     if (!token) {
       // Handle the case when the token is not available (user is not logged in)
       console.error('Token not found. User is not logged in.');
@@ -38,10 +39,9 @@ export default function UpdateAgent({
           `http://localhost:3001/api/users/updateuser/${id}`,
           {
             name: newName,
-            password: newPassword,
             username: newUserName,
             email: newEmail,
-            phonenumber: newPhoneNumber,
+            phoneNumber: newPhoneNumber,
           },
           {
             headers: {
@@ -63,7 +63,7 @@ export default function UpdateAgent({
         });
 
       console.log(`responEdit=${res.status}`);
-      router.push("/agents"); //this is the code to redirect to agents page. SET ALWAYS IN RESPONSE. Set a timeout to redirect as well. import this before handlesubmit const router = useRouter(); and this import { useRouter } from 'next/navigation';
+     // router.push("/agents"); //this is the code to redirect to agents page. SET ALWAYS IN RESPONSE. Set a timeout to redirect as well. import this before handlesubmit const router = useRouter(); and this import { useRouter } from 'next/navigation';
     
     } catch (error) {
       console.error("Error updating agent:", error);
@@ -72,60 +72,63 @@ export default function UpdateAgent({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="absolute right-20 top-20 shadow-2xl bg-sky-200"
-    ><ToastContainer />
-       <div>
-        <label>Username:</label>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-sky-300  rounded-md shadow-md text-[#181818]">
+       <div className="mb-4">
+        <label className="block text-gray-700">Username:</label>
         <input
           onChange={(e) => setnewUserName(e.target.value)}
           value={newUserName}
           type="text"
           placeholder="Username"
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>Name:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">Name:</label>
         <input
           onChange={(e) => setnewName(e.target.value)}
           value={newName}
           type="text"
           placeholder="name"
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>Password:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">Password:</label>
         <input
           onChange={(e) => setnewPassword(e.target.value)}
           value={newPassword}
           type="password"
           placeholder="Password"
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
       <div>
-        <label>Email:</label>
+        <label className="block text-gray-700">Email:</label>
         <input
           onChange={(e) => setnewEmail(e.target.value)}
           value={newEmail}
           type="email"
           placeholder="Email"
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>Phone-number:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">Phone-number:</label>
         <input
           onChange={(e) => setnewPhoneNumber(e.target.value)}
           value={newPhoneNumber}
           type="text"
           placeholder="Phone-number"
+          required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <button className="bg-sky-700" type="submit">Update Agent</button>
+      <button className="w-full py-2 text-white bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600" type="submit">Update Agent</button>
       <ToastContainer /> 
     </form>
   );

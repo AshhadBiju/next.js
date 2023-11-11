@@ -48,7 +48,7 @@ export default function UpdateArea({
         )
         .then((result) => {
           console.log(`responEditresult=${result.status}`);
-          toast.success('Area updated');
+          toast.success('Area has been updated');
           setTimeout(() => {
               router.push('/area');
             }, 3000); // 3000 milliseconds = 3 seconds
@@ -64,59 +64,62 @@ export default function UpdateArea({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="absolute right-20 top-20 shadow-2xl bg-sky-200"
-    >
-      <div>
-        <label>City:</label>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-sky-300  rounded-md shadow-md text-[#181818]">
+      <div className="mb-4">
+        <label className="block text-gray-700">City:</label>
         <input
           onChange={(e) => setnewCity(e.target.value)}
           value={newCity}
           type="text"
           placeholder="City"
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>District:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">District:</label>
         <input
           onChange={(e) => setnewDistrict(e.target.value)}
           value={newDistrict}
           type="text"
           placeholder="District"
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>State:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">State:</label>
         <input
           onChange={(e) => setnewState(e.target.value)}
           value={newState}
           type="text"
           placeholder="State"
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>Pincode:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">User ID:</label>
+        <input
+          defaultValue={userID} // Display the current userID
+          type="text"
+          disabled
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700">Pincode:</label>
         <input
           onChange={(e) => setnewPincode(e.target.value)}
           value={newPincode}
           type="text"
           placeholder="Pincode"
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>User ID:</label>
-        <input
-          defaultValue={userID} // Display the current userID
-          type="text"
-          disabled
-        />
-      </div>
-      <button className="bg-sky-700" type="submit">Update Area</button>
+      
+      <button className="w-full py-2 text-white bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600" type="submit">Update Area</button>
       <ToastContainer /> 
     </form>
   );

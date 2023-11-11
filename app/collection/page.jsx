@@ -26,21 +26,39 @@ const Collection = () => {
     fetchData();
   }, []);
 
-  const deleteCollection = async (id, date, description) => {
+  const deleteCollection = async (id, date,description) => {
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+        'Authorization': `Bearer ${token}`
+      }
+    };
+
+    const shouldDelete = window.confirm(`Are you sure you want to delete collection ${description}?`);
+
+    if (!shouldDelete) {
+      return; 
+    }
     try {
-      const response = await axios.delete(`http://localhost:3001/api/collection/delete/${id}`);
+      const response = await axios.delete(
+        `http://localhost:3001/api/collection/delete/${id}`, 
+        config
+      );
       console.log(`res=${response.status}`);
       if (response.status === 200) {
-        // The Area was successfully deleted.
-        toast.success("Collection has been deleted.");
-        console.log("Collection has been deleted.");
+       
+        toast.success(`Collection ${description} has been deleted.`);
+       
+ console.log(`Collection ${description} has been deleted.`);
         setTimeout(() => {
           window.location.reload();
-        }, 3000); // Reload the page after 3 seconds
-      } else {
-        // Handle any errors that occur during the API call.
-        toast.error(`Failed to delete Collection ${date, description}`);
-        console.error(`Failed to delete Collection ${date, description}`);
+        }, 3000); 
+     
+ } else {
+        toast.error(`Failed to delete collection ${description}`);
+        console.error(`Failed to delete collection ${description}`);
       }
     } catch (error) {
       // Handle network errors or other exceptions.
@@ -48,8 +66,11 @@ const Collection = () => {
       console.error(`An error occurred: ${error.message}`);
     }
   };
+
   
  const router = useRouter();
+
+
   return (
     <div>
       <Link href='/createCollection' className='bg-sky-600 text-black p-2 rounded-lg absolute top-4 right-40 hover:text-white transition-colors'>Create Collection</Link>

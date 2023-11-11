@@ -4,12 +4,34 @@ import "tailwindcss/tailwind.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { useRouter } from "next/navigation";
 import { AiOutlineHome } from "react-icons/ai";
 import classnames from "classnames";
+import { toast } from "react-toastify";
+
 
 const NavBar = () => {
   const currentPath = usePathname();
   console.log(currentPath);
+
+  const router = useRouter();
+
+
+  const handleLogout = () => {
+    const shouldLogout = window.confirm("Are you sure you want to logout?");
+    
+    if (shouldLogout) {
+      // Clear the authentication token from local storage
+      localStorage.removeItem('token');
+      toast.success('Logged Out');
+      console.log('Logged Out');
+      // Redirect the user to the login page
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
+    }
+  };
+
 
   const links = [
     { label: "Agents", href: "/agents" },
@@ -17,7 +39,6 @@ const NavBar = () => {
     { label: "Area", href: "/area" },
     { label: "Collection", href: "/collection" },
     { label: "Customer", href: "/customer" },
-    { label: "Login", href: "/login" },
   ];
 
   return (
@@ -41,7 +62,10 @@ const NavBar = () => {
             {link.label}
           </Link>
         ))}
-        <button className=" text-black p-2 rounded-lg  hover:text-white transition-colors">
+        <button
+          className="text-black p-2 rounded-lg hover:text-white transition-colors"
+          onClick={handleLogout} // Attach the handleLogout function to the onClick event
+        >
           Logout
         </button>
       </ul>

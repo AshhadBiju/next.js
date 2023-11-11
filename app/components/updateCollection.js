@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 
 export default function UpdateCollectionForm({
-        id,
-        amount,
-        description,
-        date,
-        customerID,
-        userID,  
+      id,
+      amount,
+      description,
+      date,
+      customerID,
+      userID,  
 }) {
   const [newAmount, setnewAmount] = useState(amount);
   const [newDescription, setnewDescription] = useState(description);
@@ -66,57 +66,56 @@ export default function UpdateCollectionForm({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="absolute right-20 top-20 shadow-2xl bg-sky-200"
-    >
-      <div>
-        <label>Date:</label>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-sky-300  rounded-md shadow-md text-[#181818]">
+      <div className="mb-4">
+        <label className="block text-gray-700">Date:</label>
         <input
           onChange={(e) => setnewDate(e.target.value)}
           value={newDate}
           type="text"
           placeholder="Date"  
-
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>Description:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">Description:</label>
         <input
           onChange={(e) => setnewDescription(e.target.value)}
           value={newDescription}
           type="text"
           placeholder="Description"
-         
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"        
         />
       </div>
-      <div>
-        <label>Amount:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">Amount:</label>
         <input
           onChange={(e) => setnewAmount(e.target.value)}
           value={newAmount}
           type="text"
           placeholder="Amount"
-          
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>User ID:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">User ID:</label>
         <input
           defaultValue={userID} 
           type="text"
           disabled
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>Customer ID:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">Customer ID:</label>
         <input
           defaultValue={customerID} 
           type="text"
           disabled
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <button className="bg-sky-700" type="submit">Update Collection</button>
+      <button className="w-full py-2 text-white bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600" type="submit">Update Collection</button>
       <ToastContainer /> 
     </form>
   );

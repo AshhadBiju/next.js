@@ -62,29 +62,28 @@ const CreatePlanForm = () => {
       });
   };
   return (
-    <form
-      className="absolute right-20 top-20 shadow-2xl bg-sky-200"
-      onSubmit={handleSubmit}
-    >
-      <div>
-        <label>Plan Name:</label>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-sky-300  rounded-md shadow-md text-[#181818]">
+      <div className="mb-4">
+        <label htmlFor="planName" className="block text-gray-700">Plan Name:</label>
         <input
           type="text"
           name="planName"
           value={formData.planName}
           onChange={handleChange}
-        />
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
+          />
       </div>
-      <div>
+      <div className="mb-4">
         <label>Price:</label>
         <input
           type="text"
           name="price"
           value={formData.price}
           onChange={handleChange}
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
+      <div className="mb-4">
         <label>User ID</label>
         <input
           type="text"
@@ -92,9 +91,10 @@ const CreatePlanForm = () => {
           value={formData.userID}
           onChange={handleChange}
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
+      <div className="mb-4">
         <label>Image:</label>
         <input
           type="file"
@@ -102,9 +102,10 @@ const CreatePlanForm = () => {
           name="image"
           onChange={handleImageUpload}
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <button className="bg-sky-700" type="submit">
+      <button className="w-full py-2 text-white bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600" type="submit">
         Create Plan
       </button>
       <ToastContainer /> {/* Add this component at the root level */}

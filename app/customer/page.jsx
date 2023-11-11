@@ -27,29 +27,49 @@ const Customer = () => {
   }, []);
 
   const deleteCustomer = async (id, name) => {
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+        'Authorization': `Bearer ${token}`
+      }
+    };
+
+    const shouldDelete = window.confirm(`Are you sure you want to          delete customer ${name}?`);
+
+    if (!shouldDelete) {
+      return; 
+    }
     try {
-      const response = await axios.delete(`http://localhost:3001/api/customer/delete/${id}`);
+      const response = await axios.delete(
+        `http://localhost:3001/api/customer/delete/${id}`, 
+        config
+      );
       console.log(`res=${response.status}`);
       if (response.status === 200) {
-        // The Area was successfully deleted.
-        toast.success(`Customer has been deleted.`);
-        console.log(`Customer has been deleted.`);
+       
+        toast.success(`Customer ${name} has been deleted.`);
+       
+ console.log(`Customer ${name} has been deleted.`);
         setTimeout(() => {
           window.location.reload();
-        }, 3000); // Reload the page after 3 seconds
-      } else {
-        // Handle any errors that occur during the API call.
-        toast.error(`Failed to delete Customer ${name}`);
-        console.error(`Failed to delete Customer ${name}`);
+        }, 3000); 
+     
+ } else {
+        toast.error(`Failed to delete customer ${name}`);
+        console.error(`Failed to delete customer ${name}`);
       }
     } catch (error) {
-      // Handle network errors or other exceptions.
       toast.error(`An error occurred: ${error.message}`);
       console.error(`An error occurred: ${error.message}`);
     }
   };
-  
- const router = useRouter();
+
+ 
+  const router = useRouter();
+
+
   return (
     <div>
       <Link href='/createCustomer' className='bg-sky-600 text-black p-2 rounded-lg absolute top-4 right-40 hover:text-white transition-colors'>Create Customer</Link>

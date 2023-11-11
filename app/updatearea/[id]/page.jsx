@@ -14,6 +14,8 @@ export default async function EditArea({ params }) {
 
   return <UpdateArea {...areaData} />;
 }
+
+
 const getAreaById = async (idn) => {
   try {
     console.log(`idid=${idn}`);

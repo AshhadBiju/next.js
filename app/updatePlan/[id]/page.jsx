@@ -41,7 +41,8 @@ const getPlanbyID = async (idn) => {
       planName,
       price,
       userID,
-      imageURL, } = plan;
+      imageURL, 
+    } = plan;
     console.log(`name=${id}`);
 
     return {

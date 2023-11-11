@@ -69,48 +69,49 @@ export default function UpdatePlan({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="absolute right-20 top-20 shadow-2xl bg-sky-200"
-    >
-      <div>
-        <label>Plan Name:</label>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-sky-300  rounded-md shadow-md text-[#181818]">
+      <div className="mb-4">
+        <label className="block text-gray-700">Plan Name:</label>
         <input
           onChange={(e) => setnewPlanName(e.target.value)}
           value={newPlanName}
           type="text"
           placeholder="Plan Name"
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>Price:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">Price:</label>
         <input
           onChange={(e) => setnewPrice(e.target.value)}
           value={newPrice}
           type="text"
           placeholder="Price"
           required
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>User ID</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">User ID</label>
         <input
           defaultValue={userID}
           type="text"        
           disabled
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div>
-        <label>Image:</label>
+      <div className="mb-4">
+        <label className="block text-gray-700">Image:</label>
         <input
           type="file"
           accept=".png, .jpg, .jpeg"
           name="image"
           onChange={handleImageUpload}
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <button className="bg-sky-700" type="submit">
+      <button className="w-full py-2 text-white bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600" type="submit">
         Update Plan
       </button>
       <ToastContainer /> 
