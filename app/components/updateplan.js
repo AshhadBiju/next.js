@@ -34,6 +34,7 @@ export default function UpdatePlan({
     if (!token) {
         // Handle the case when the token is not available (user is not logged in)
         console.error('Token not found. User is not logged in.');
+        toast.error('Please log in first');
         return;
     }
       const res = axios

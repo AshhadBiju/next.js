@@ -29,6 +29,7 @@ const CreateAgent = () => {
     if (!token) {
       // Handle the case when the token is not available (user is not logged in)
       console.error('Token not found. User is not logged in.');
+      toast.error('Please log in first');
       return;
   }
     axios.post('http://localhost:3001/api/users/createuser', formData, {
@@ -102,6 +103,8 @@ const CreateAgent = () => {
           name="phoneNumber"
           value={formData.phoneNumber}
           onChange={handleChange}
+          pattern="[0-10]*"  // Only allow numbers
+          title="Please enter only numeric values"
           className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>

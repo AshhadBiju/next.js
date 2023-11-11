@@ -25,6 +25,7 @@ const CreateCollection = () => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     if (!token) {
+      toast.error('Please log in first');
       // Handle the case when the token is not available (user is not logged in)
       console.error('Token not found. User is not logged in.');
       return;
@@ -73,7 +74,8 @@ const CreateCollection = () => {
           name="amount"
           value={formData.amount}
           onChange={handleChange}
-          required
+          required  
+          title="Please enter only numeric values"
           className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
@@ -85,6 +87,8 @@ const CreateCollection = () => {
           value={formData.date}
           onChange={handleChange}
           required
+          pattern="[0-8]*"  // Only allow numbers
+          title="Please enter only numeric values"
           className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>

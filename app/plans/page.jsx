@@ -15,9 +15,19 @@ const Plans = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          // Display an error message or toast if there is no token
+          toast.error('Please log in first.');
+          // You may also redirect the user to the login page
+          return;
+        }
         const response = await axios.get(
           "http://localhost:3001/api/plans/getAll",
-          { headers: { "Cache-Control": "no-store" } }
+          { 
+            headers: { "Cache-Control": "no-store",
+                        'Authorization': `Bearer ${token}`  
+                      } }
         );
         setPlanData(response.data);
         localStorage.setItem("dataId", response.data.id);
@@ -102,17 +112,18 @@ const Plans = () => {
                   <td className="py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90">
                     {data.planName}
                   </td>
-                  <img
-                    src={`${imageBaseURL}${data.imageURL}`}
-                    width="50"
-                    height='50'
-                    alt="Image"
-                  />
-
-                  <td className="py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90">
+                  <td className="py-3 px-6 hover-bg-sky-500 cursor-pointer duration-300 hover:scale-90">
+                    <img
+                      src={`${imageBaseURL}${data.imageURL}`}
+                      width="50"
+                      height="50"
+                      alt="Image"
+                    />
+                   </td>
+                  <td className="py-3 px-6 hover-bg-sky-500 cursor-pointer duration-300 hover:scale-90">
                     {data.price}
                   </td>
-                  <td className="py-3 px-6 hover-bg-sky-500 cursor-pointer duration-300 hover:scale-90">
+                  <td className="py-3 px-6 hover-bg-sky-500 cursor-pointer duration-300 hover:scale-90 flex justify-center items-center">
                     <Link
                       className="hover:text-sky-400 transition-colors p-2"
                       href={`/updatePlan/${data.id}`}
@@ -121,7 +132,8 @@ const Plans = () => {
                     </Link>
                     <button
                       className="hover:text-sky-400 transition-colors p-2"
-                      onClick={() => deletePlan(data.id, data.planName)}>
+                      onClick={() => deletePlan(data.id, data.planName)}
+                    >
                       <MdDeleteOutline />
                     </button>
                   </td>
@@ -130,7 +142,7 @@ const Plans = () => {
           </tbody>
         </table>
       </div>
-      <ToastContainer autoClose={3000} /> 
+      <ToastContainer autoClose={3000} />
     </div>
   );
 };

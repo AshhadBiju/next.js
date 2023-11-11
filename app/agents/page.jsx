@@ -92,8 +92,7 @@ const Agents = () => {
     <div>
       <Link
         href="/createagent"
-        className="bg-sky-600 text-black p-2 rounded-lg absolute top-4 right-40 hover:text-white transition-colors"
-      >
+        className="bg-sky-600 text-black p-2 rounded-lg absolute top-4 right-40 hover:text-white transition-colors">
         Create Agents
       </Link>
       <h1 className=" top-5 left-40">
@@ -127,26 +126,28 @@ const Agents = () => {
                     {data.phoneNumber}
                   </td>
                   <td className="py-3 px-6 hover-bg-sky-500 cursor-pointer duration-300 hover:scale-90">
-                    <Link
-                      className="hover:text-sky-400 transition-colors p-2"
-                      href={`/updateagent/${data.id}`}
-                    >
-                      {" "}
-                      <AiOutlineEdit />
-                    </Link>
-                    <button
-                      className="hover:text-sky-400 transition-colors p-2"
-                      onClick={() => deleteUser(data.id, data.name)}
-                    >
-                      <MdDeleteOutline />
-                    </button>
+                  <div className="flex items-center justify-center space-x-4">
+                      <Link
+                        className="hover:text-sky-400 transition-colors p-2"
+                        href={`/updateagent/${data.id}`}
+                      >
+                        {" "}
+                        <AiOutlineEdit />
+                      </Link>
+                      <button
+                        className="hover:text-sky-400 transition-colors p-2"
+                        onClick={() => deleteUser(data.id, data.name)}
+                      >
+                        <MdDeleteOutline />
+                      </button>
+                    </div>
                   </td>
-                </tr> 
+                </tr>
               ))}
           </tbody>
         </table>
       </div>
-      <ToastContainer autoClose={3000} /> {/* Add this line to display toasts */}
+      <ToastContainer autoClose={3000} />
     </div>
   );
 };

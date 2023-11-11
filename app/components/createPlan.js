@@ -80,6 +80,7 @@ const CreatePlanForm = () => {
           name="price"
           value={formData.price}
           onChange={handleChange}
+          title="Please enter only numeric values"
           className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>

@@ -28,6 +28,7 @@ const CreateArea = () => {
     console.log('Token:', token);
     if (!token) {
       // Handle the case when the token is not available (user is not logged in)
+      toast.error('Please Log in first');
       console.error('Token not found. User is not logged in.');
       return;
   }
@@ -99,6 +100,8 @@ const CreateArea = () => {
           value={formData.pincode}
           onChange={handleChange}
           required
+          pattern="[0-4]*"  // Only allow numbers
+          title="Please enter only numeric values"
           className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>

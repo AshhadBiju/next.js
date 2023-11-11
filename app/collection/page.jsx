@@ -15,7 +15,20 @@ const Collection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/collection/getAll', { headers: { 'Cache-Control': 'no-store' } });
+        const token = localStorage.getItem('token');
+        if (!token) {
+          // Display an error message or toast if there is no token
+          toast.error('Please log in first.');
+          // You may also redirect the user to the login page
+          return;
+        }
+
+        const response = 
+        await axios.get ('http://localhost:3001/api/collection/getAll', 
+        { headers: 
+          { 'Cache-Control': 'no-store' ,
+            'Authorization': `Bearer ${token}`
+        } });
         setCollectionData(response.data);
         localStorage.setItem('dataId', response.data.id);
       } catch (error) {
@@ -94,16 +107,20 @@ const Collection = () => {
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.date}</td>
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.description}</td>
                 <td className='py-3 px-6 hover:bg-sky-500 cursor-pointer duration-300 hover:scale-90'>{data.amount}</td>
-                <td className='py-3 px-6 hover-bg-sky-500 cursor-pointer duration-300 hover:scale-90'>
-                <Link  className='hover:text-sky-400 transition-colors p-2'href={`/updatecollection/${data.id}`}> <AiOutlineEdit /></Link>
-                <button className='hover:text-sky-400 transition-colors p-2' onClick={() => deleteCollection(data.id, data.description)}><MdDeleteOutline /></button>
-              </td>
-              </tr>//href={`/updateagent?id=${data.id}`}<ToastContainer autoClose={3000} /> {/* Add this line to display toasts */}
-            ))}   
+                <td className='py-3 px-6 hover-bg-sky-500 cursor-pointer duration-300 hover:scale-90 flex justify-center items-center'>
+                  <Link className='hover:text-sky-400 transition-colors p-2' href={`/updatecollection/${data.id}`}>
+                    <AiOutlineEdit />
+                  </Link>
+                  <button className='hover:text-sky-400 transition-colors p-2' onClick={() => deleteCollection(data.id, data.date, data.description)}>
+                    <MdDeleteOutline />
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
-      <ToastContainer autoClose={3000} /> {/* Add this line to display toasts */}
+      <ToastContainer autoClose={3000} />
     </div>
   );
 };

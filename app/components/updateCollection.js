@@ -25,6 +25,7 @@ export default function UpdateCollectionForm({
     const token = localStorage.getItem('token');
     if (!token) {
       // Handle the case when the token is not available (user is not logged in)
+      toast.error('Please log in first');
       console.error('Token not found. User is not logged in.');
       return;
   }
