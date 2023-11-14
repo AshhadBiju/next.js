@@ -4,18 +4,22 @@ import axios from "axios"; // Import Axios
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 
-export default function UpdatePlan({
-  id,
-  planName,
-  price,
-  userID,
-  imageURL,
-}) {
-
+export default function UpdatePlan({ id, planName, price, userID, imageURL }) {
   const [newPlanName, setnewPlanName] = useState(planName);
   const [newPrice, setnewPrice] = useState(price);
-  const [newImageURL, setnewImageURL] = useState(imageURL);
+  //const [newImageURL, setnewImageURL] = useState(imageURL);
 
+  const [formData, setFormData] = useState({
+    planName: newPlanName,
+    price: newPrice,
+    userID: userID,
+    imageURL: imageURL,
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    console.log(handleChange);
+    setFormData({ ...formData, [name]: value });
+  };
   const handleImageUpload = (e) => {
     const file = e.target.files[0]; // Get the first file from the input
     console.log(handleImageUpload);
@@ -29,36 +33,27 @@ export default function UpdatePlan({
     // Send a POST request to your API to Update the agent using Axios
     console.log(`id=${id}, ${newPlanName}`);
     try {
-    const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
-    if (!token) {
+      if (!token) {
         // Handle the case when the token is not available (user is not logged in)
-        console.error('Token not found. User is not logged in.');
-        toast.error('Please log in first');
+        console.error("Token not found. User is not logged in.");
+        toast.error("Please log in first");
         return;
-    }
+      }
       const res = axios
-        .put( 
-            `http://localhost:3001/api/plans/update/${id}`,
-          {
-            planName:newPlanName,
-            price:newPrice,
-            imageURL:newImageURL,
-            userID,
+        .put(`http://localhost:3001/api/plans/update/${id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
           },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              'Authorization': `Bearer ${token}`
-            },
-          }
-        )
+        })
         .then((result) => {
           console.log(`responEditresult=${result.status}`);
-          toast.success('Plan updated');
+          toast.success("Plan updated");
           setTimeout(() => {
-              router.push('/plans');
-            }, 3000); // 3000 milliseconds = 3 seconds
+            router.push("/plans");
+          }, 3000); // 3000 milliseconds = 3 seconds
         })
         .catch((error) => {
           console.log(`responEditerror=${error}`);
@@ -70,13 +65,17 @@ export default function UpdatePlan({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-sky-300  rounded-md shadow-md text-[#181818]">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-md mx-auto p-6 bg-sky-300  rounded-md shadow-md text-[#181818]"
+    >
       <div className="mb-4">
         <label className="block text-gray-700">Plan Name:</label>
         <input
-          onChange={(e) => setnewPlanName(e.target.value)}
-          value={newPlanName}
+          value={formData.planName}
+          onChange={handleChange}
           type="text"
+          name="planName"
           placeholder="Plan Name"
           required
           className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
@@ -85,23 +84,24 @@ export default function UpdatePlan({
       <div className="mb-4">
         <label className="block text-gray-700">Price:</label>
         <input
-          onChange={(e) => setnewPrice(e.target.value)}
-          value={newPrice}
+          value={formData.price}
+          onChange={handleChange}
           type="text"
           placeholder="Price"
+          name="price"
           required
           className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <label className="block text-gray-700">User ID</label>
         <input
           defaultValue={userID}
-          type="text"        
+          type="text"
           disabled
           className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
-      </div>
+      </div> */}
       <div className="mb-4">
         <label className="block text-gray-700">Image:</label>
         <input
@@ -112,10 +112,13 @@ export default function UpdatePlan({
           className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>
-      <button className="w-full py-2 text-white bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600" type="submit">
+      <button
+        className="w-full py-2 text-white bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600"
+        type="submit"
+      >
         Update Plan
       </button>
-      <ToastContainer /> 
+      <ToastContainer />
     </form>
   );
 }
