@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { baseURL } from "@/app/utils/constants";
 import { toast } from "react-toastify";
 import UpdateAgent from "@/app/components/updateagentdetails";
 
@@ -19,7 +20,7 @@ export default async function EditAgents({ params }) {
 const getAgentById = async (idn) => {
   try {
     console.log(`idid=${idn}`);
-    const url = `http://localhost:3001/api/users/getuser/${idn}`;
+    const url = `${baseURL}users/getuser/${idn}`;
     const res = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",

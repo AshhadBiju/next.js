@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios
+import { baseURL } from "@/app/utils/constants";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -32,7 +33,7 @@ const CreateAgent = () => {
       toast.error('Please log in first');
       return;
   }
-    axios.post('http://localhost:3001/api/users/createuser', formData, {
+    axios.post(`${baseURL}users/createuser`, formData, {
         headers: {
           'Content-Type': 'application/json',
           'Cache-Control': 'no-store',
@@ -103,8 +104,6 @@ const CreateAgent = () => {
           name="phoneNumber"
           value={formData.phoneNumber}
           onChange={handleChange}
-          pattern="[0-10]*"  // Only allow numbers
-          title="Please enter only numeric values"
           className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
         />
       </div>

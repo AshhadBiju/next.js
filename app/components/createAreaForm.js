@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
-import axios from 'axios'; // Import Axios
+import axios from 'axios'; 
+import { baseURL } from "@/app/utils/constants";
 import { useRouter } from 'next/navigation';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -34,7 +35,7 @@ const CreateArea = () => {
   }
     console.log("Form submitted"); // Add this line
     // Send a POST request to your API to create the agent using Axios
-    axios.post('http://localhost:3001/api/area/create', formData, {
+    axios.post(`${baseURL}area/create`, formData, {
         headers: {
           'Content-Type': 'application/json',
           'Cache-Control': 'no-store',

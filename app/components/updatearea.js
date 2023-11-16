@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios"; // Import Axios
 import { useRouter } from "next/navigation";
+import { baseURL } from "@/app/utils/constants";
 import { toast, ToastContainer } from "react-toastify";
 
 export default function UpdateArea({
@@ -32,7 +33,7 @@ export default function UpdateArea({
     try {
       const res = axios
         .put(
-          `http://localhost:3001/api/area/update/${id}`,
+          `${baseURL}area/update/${id}`,
           {
             city: newCity,
             state: newState,

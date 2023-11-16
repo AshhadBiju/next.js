@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import axios from "axios"; // Import Axios
+import axios from "axios"; 
+import { baseURL } from "@/app/utils/constants";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -42,7 +43,7 @@ export default function UpdatePlan({ id, planName, price, userID, imageURL }) {
         return;
       }
       const res = axios
-        .put(`http://localhost:3001/api/plans/update/${id}`, formData, {
+        .put(`${baseURL}plans/update/${id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,

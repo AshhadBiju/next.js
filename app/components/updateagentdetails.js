@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import axios from "axios"; // Import Axios
+import axios from "axios";
+import { baseURL } from "@/app/utils/constants";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -37,7 +38,7 @@ export default function UpdateAgent({
     try {
       const res = axios
         .put(
-          `http://localhost:3001/api/users/updateuser/${id}`,
+          `${baseURL}users/updateuser/${id}`,
           {
             name: newName,
             username: newUserName,

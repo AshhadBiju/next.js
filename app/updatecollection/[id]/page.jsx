@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { baseURL } from "@/app/utils/constants";
 import { toast } from "react-toastify";
 import UpdateCollectionForm from '@/app/components/updateCollection'
 
@@ -17,7 +18,7 @@ export default async function EditCollection({ params }) {
 const getCollectionById = async (idn) => {
   try {
     console.log(`idid=${idn}`);
-    const url = `http://localhost:3001/api/collection/get/${idn}`;
+    const url = `${baseURL}collection/get/${idn}`;
     const res = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",

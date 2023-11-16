@@ -2,6 +2,7 @@
 "use client";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import { baseURL } from "@/app/utils/constants";
 import { useRouter } from "next/navigation";
 export default function LoginForm() {
   const router = useRouter();
@@ -13,12 +14,14 @@ export default function LoginForm() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleLoginSuccess = async (token) => {
+  const handleLoginSuccess = async (data) => {
     console.log("Handling login success");
-    localStorage.setItem("token", token);
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("userID", data.user.id);
+    localStorage.setItem('userRole',data.user.role);
     toast.success("Logged In ");
     setTimeout(() => {
-      router.push("/agents");
+      router.push("/homeScreen");
     }, 3000);
   };
 
@@ -31,7 +34,7 @@ export default function LoginForm() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:3001/api/users/login", {
+      const response = await fetch(`${baseURL}users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +45,7 @@ export default function LoginForm() {
       if (response.ok) {
         const data = await response.json();
 
-        handleLoginSuccess(data.token); // Save the token
+        handleLoginSuccess(data); // Save the token
         console.log("Successful login", data);
       } else {
         handleLoginFailure(response.statusText);

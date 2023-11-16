@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios
 import { useRouter } from 'next/navigation';
+import { baseURL } from "@/app/utils/constants";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -32,7 +33,7 @@ const CreateCollection = () => {
   }
     console.log("Form submitted"); // Add this line
     // Send a POST request to your API to create the agent using Axios
-    axios.post('http://localhost:3001/api/collection/create', formData, {
+    axios.post(`${baseURL}collection/create`, formData, {
         headers: {
           'Content-Type': 'application/json',
           'Cache-Control': 'no-store',

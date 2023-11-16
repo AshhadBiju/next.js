@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { baseURL } from "@/app/utils/constants";
 import { toast } from "react-toastify";
 import UpdateArea from "../../components/updatearea";
 
@@ -19,7 +20,7 @@ export default async function EditArea({ params }) {
 const getAreaById = async (idn) => {
   try {
     console.log(`idid=${idn}`);
-    const url = `http://localhost:3001/api/area/get/${idn}`;
+    const url = `${baseURL}area/get/${idn}`;
     const res = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",

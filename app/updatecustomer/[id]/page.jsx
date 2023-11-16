@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { baseURL } from "@/app/utils/constants";
 import { toast } from "react-toastify";
 import UpdateCustomerForm from "../../components/updateCustomer";
 
@@ -18,7 +19,7 @@ export default async function EditCustomer({ params }) {
 const getCustomerById = async (idn) => {
   try {
     console.log(`idid=${idn}`);
-    const res = await axios.get(`http://localhost:3001/api/customer/get/${idn}`, {
+    const res = await axios.get(`${baseURL}customer/get/${idn}`, {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",

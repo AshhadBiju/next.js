@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { baseURL } from "@/app/utils/constants";
 import { toast } from "react-toastify";
 import UpdatePlan from "@/app/components/updateplan";
 
@@ -17,7 +18,7 @@ export default async function EditArea({ params }) {
 const getPlanbyID = async (idn) => {
   try {
     console.log(`idid=${idn}`);
-    const url = `http://localhost:3001/api/plans/get/${idn}`;
+    const url = `${baseURL}plans/get/${idn}`;
     const res = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
