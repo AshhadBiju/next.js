@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import axios from "axios";
 import { baseURL } from "@/app/utils/constants";
@@ -5,6 +6,7 @@ import { toast } from "react-toastify";
 import UpdateCustomerForm from "../../components/updateCustomer";
 
 export default async function EditCustomer({ params }) {
+  const token = localStorage.getItem("token");
   const { id } = params;
   console.log(`idid=${id}`);
   const customerData = await getCustomerById(id);
@@ -18,11 +20,12 @@ export default async function EditCustomer({ params }) {
 
 const getCustomerById = async (idn) => {
   try {
+    const token = localStorage.getItem("token");
     console.log(`idid=${idn}`);
     const res = await axios.get(`${baseURL}customer/get/${idn}`, {
       headers: {
-        "Content-Type": "application/json",
         "Cache-Control": "no-store",
+        Authorization: `Bearer ${token}`,
       },
     });
     console.log(`res=${res}`);
@@ -39,7 +42,16 @@ const getCustomerById = async (idn) => {
       return null; // Return null or an empty object when there's an error
     }
 
-    const { id, name, mobileNumber, registerNumber, address, userID, areaID, planID } = customer;
+    const {
+      id,
+      name,
+      mobileNumber,
+      registerNumber,
+      address,
+      userID,
+      areaID,
+      planID,
+    } = customer;
     console.log(`name=${name}`);
 
     return {

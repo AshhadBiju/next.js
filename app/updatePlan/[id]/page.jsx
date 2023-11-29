@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import axios from "axios";
 import { baseURL } from "@/app/utils/constants";
@@ -5,8 +6,9 @@ import { toast } from "react-toastify";
 import UpdatePlan from "@/app/components/updateplan";
 
 export default async function EditArea({ params }) {
+  const token = localStorage.getItem("token");
   const { id } = params;
-  console.log(`idid=${id}`);
+  console.log(`idid=`);
   const planData = await getPlanbyID(id);
   console.log(`planData=${planData}`);
   if (!planData) {
@@ -17,12 +19,14 @@ export default async function EditArea({ params }) {
 }
 const getPlanbyID = async (idn) => {
   try {
+    const token = localStorage.getItem("token");
     console.log(`idid=${idn}`);
+
     const url = `${baseURL}plans/get/${idn}`;
     const res = await axios.get(url, {
       headers: {
-        "Content-Type": "application/json",
         "Cache-Control": "no-store",
+        Authorization: `Bearer ${token}`,
       },
     });
     console.log(`res=${res}`);
@@ -38,12 +42,7 @@ const getPlanbyID = async (idn) => {
       // Handle the error appropriately, e.g., display an error message to the user.
     }
 
-    const {  id,
-      planName,
-      price,
-      userID,
-      imageURL, 
-    } = plan;
+    const { id, planName, price, userID, imageURL } = plan;
     console.log(`name=${id}`);
 
     return {

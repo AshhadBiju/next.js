@@ -4,6 +4,8 @@ import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { baseURL } from "@/app/utils/constants";
 import { useRouter } from "next/navigation";
+//import { ClipLoader } from "react-spinners";
+
 export default function LoginForm() {
   const router = useRouter();
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -18,7 +20,7 @@ export default function LoginForm() {
     console.log("Handling login success");
     localStorage.setItem("token", data.token);
     localStorage.setItem("userID", data.user.id);
-    localStorage.setItem('userRole',data.user.role);
+    localStorage.setItem("userRole", data.user.role);
     toast.success("Logged In ");
     setTimeout(() => {
       router.push("/homeScreen");
@@ -58,47 +60,66 @@ export default function LoginForm() {
       setLoading(false);
     }
   };
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-md mx-auto p-6 bg-sky-300  rounded-md shadow-md text-[#181818]"
-    >
-      <div className="mb-4">
-        <label htmlFor="username" className="block text-gray-700">
-          Username:
-        </label>
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="password" className="block text-gray-700">
-          Password:
-        </label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
-        />
-      </div>
-      <button
-        className={`w-full py-2 text-white bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600 ${
-          loading ? "opacity-50 cursor-not-allowed" : ""
-        }`}
-        type="submit"
-        disabled={loading}
+    <div>
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-md mx-auto p-6 bg-white rounded-md shadow-md text-[#181818]"
       >
-        {loading ? "Logging In..." : "LOGIN AGENT"}
-      </button>
-      <ToastContainer /> {/* Add this component at the root level */}
-    </form>
+        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+        <div className="mb-4">
+          <label htmlFor="username" className="block text-gray-700">
+            Username:
+          </label>
+          <input
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
+          />
+        </div>
+        <div className="mb-4 relative">
+          <label htmlFor="password" className="block text-gray-700">
+            Password:
+          </label>
+          <div className="flex items-center">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-sky-500"
+            />
+            <button
+              type="button"
+              className="text-gray-600 absolute right-2 top-8 cursor-pointer"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? "👁️" : "👁️‍🗨️"}
+            </button>
+          </div>
+        </div>
+        <button
+          className={`w-full py-2 text-white bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600 ${
+            loading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? "Logging In..." : "LOGIN"}
+        </button>
+        <ToastContainer />
+      </form>
+    </div>
   );
 }

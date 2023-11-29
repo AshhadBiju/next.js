@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "./NavBar";
+import AppBar from "./AppBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <main className="w-screen h-screen flex ">
           <NavBar />
+          <AppBar />
           <div className="p-4 w-full h-full">{children}</div>
         </main>
       </body>

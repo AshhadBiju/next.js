@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import axios from "axios";
 import { baseURL } from "@/app/utils/constants";
@@ -5,6 +6,7 @@ import { toast } from "react-toastify";
 import UpdateArea from "../../components/updatearea";
 
 export default async function EditArea({ params }) {
+  const token = localStorage.getItem("token");
   const { id } = params;
   console.log(`idid=${id}`);
   const areaData = await getAreaById(id);
@@ -16,15 +18,15 @@ export default async function EditArea({ params }) {
   return <UpdateArea {...areaData} />;
 }
 
-
 const getAreaById = async (idn) => {
   try {
+    const token = localStorage.getItem("token");
     console.log(`idid=${idn}`);
     const url = `${baseURL}area/get/${idn}`;
     const res = await axios.get(url, {
       headers: {
-        "Content-Type": "application/json",
         "Cache-Control": "no-store",
+        Authorization: `Bearer ${token}`,
       },
     });
     console.log(`res=${res}`);
@@ -44,12 +46,12 @@ const getAreaById = async (idn) => {
     console.log(`name=${id}`);
 
     return {
-        id,
-        city,
-        state,
-        district,
-        pincode,
-        userID,
+      id,
+      city,
+      state,
+      district,
+      pincode,
+      userID,
     };
   } catch (error) {
     console.error("Error fetching area:", error);

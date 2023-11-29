@@ -6,13 +6,10 @@ import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const CreateAgent = () => {
+const ProfilePage = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    name: "",
-    email: "",
-    phoneNumber: "",
   });
 
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -85,6 +82,7 @@ const CreateAgent = () => {
 
   return (
     <div className="pt-11">
+      <h1 className=" absolute right-52 text-[#181818]">PROFILE</h1>
       <form
         onSubmit={handleSubmit}
         className="max-w-md mx-auto p-6 bg-white  rounded-md shadow-md text-[#181818]"
@@ -99,36 +97,7 @@ const CreateAgent = () => {
             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-blue-800"
           />
         </div>
-        <div className="mb-4">
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-blue-800"
-          />
-        </div>
-        <div className="mb-4">
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-blue-800"
-          />
-        </div>
-        <div className="mb-4">
-          <label>Phone Number:</label>
-          <input
-            type="number"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-blue-800"
-          />
-        </div>
+
         <div className="mb-4">
           <label>Password:</label>
           <input
@@ -160,11 +129,11 @@ const CreateAgent = () => {
           type="submit"
           disabled={loading} // Disable the button when loading
         >
-          {loading ? "Creating Agent..." : "Create Agent"}
+          {loading ? "Submitting..." : "Submit"}
         </button>
         <ToastContainer />
       </form>
     </div>
   );
 };
-export default CreateAgent;
+export default ProfilePage;

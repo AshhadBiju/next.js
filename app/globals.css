@@ -4,18 +4,21 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-color: #8ce2fa; 
+  background-color: #dae3dc;
   padding: 1rem;
+}
+
+.custom-width {
+  width: 89.1%; /* Adjust the percentage as needed */
+  max-width: 95%;
 }

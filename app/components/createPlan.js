@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import Axios
 import { baseURL } from "@/app/utils/constants";
 import { useRouter } from "next/navigation";
@@ -14,8 +14,21 @@ const CreatePlanForm = () => {
     userID: userID,
     imageURL: null,
   });
-
   console.log(CreatePlanForm);
+
+  const [token, setToken] = useState("");
+
+  const router = useRouter(); //just before the handleSubmit where the agent created response is stored
+
+  useEffect(() => {
+    const tokenFromStorage = localStorage.getItem("token");
+    setToken(tokenFromStorage);
+
+    // Redirect to the login page if the user is not authenticated
+    if (!tokenFromStorage) {
+      router.push("/");
+    }
+  }, [router]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,8 +41,6 @@ const CreatePlanForm = () => {
     console.log(handleImageUpload);
     setFormData({ ...formData, imageURL: file });
   };
-
-  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,34 +74,35 @@ const CreatePlanForm = () => {
       });
   };
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-md mx-auto p-6 bg-sky-300  rounded-md shadow-md text-[#181818]"
-    >
-      <div className="mb-4">
-        <label htmlFor="planName" className="block text-gray-700">
-          Plan Name:
-        </label>
-        <input
-          type="text"
-          name="planName"
-          value={formData.planName}
-          onChange={handleChange}
-          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
-        />
-      </div>
-      <div className="mb-4">
-        <label>Price:</label>
-        <input
-          type="text"
-          name="price"
-          value={formData.price}
-          onChange={handleChange}
-          title="Please enter only numeric values"
-          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
-        />
-      </div>
-      {/* <div className="mb-4">
+    <div className="pt-11">
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-md mx-auto p-6 bg-white rounded-md shadow-md text-[#181818]"
+      >
+        <div className="mb-4">
+          <label htmlFor="planName" className="block text-gray-700">
+            Plan Name:
+          </label>
+          <input
+            type="text"
+            name="planName"
+            value={formData.planName}
+            onChange={handleChange}
+            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-blue-800"
+          />
+        </div>
+        <div className="mb-4">
+          <label>Price:</label>
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            title="Please enter only numeric values"
+            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-blue-800"
+          />
+        </div>
+        {/* <div className="mb-4">
         <label>User ID</label>
         <input
           type="text"
@@ -98,28 +110,29 @@ const CreatePlanForm = () => {
           value={formData.userID}
           onChange={handleChange}
           required
-          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-blue-800"
         />
       </div> */}
-      <div className="mb-4">
-        <label>Image:</label>
-        <input
-          type="file"
-          accept=".png, .jpg, .jpeg"
-          name="image"
-          onChange={handleImageUpload}
-          required
-          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
-        />
-      </div>
-      <button
-        className="w-full py-2 text-white bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600"
-        type="submit"
-      >
-        Create Plan
-      </button>
-      <ToastContainer /> {/* Add this component at the root level */}
-    </form>
+        <div className="mb-4">
+          <label>Image:</label>
+          <input
+            type="file"
+            accept=".png, .jpg, .jpeg"
+            name="image"
+            onChange={handleImageUpload}
+            required
+            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-blue-800"
+          />
+        </div>
+        <button
+          className="w-full py-2 text-white bg-blue-800 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600"
+          type="submit"
+        >
+          Create Plan
+        </button>
+        <ToastContainer /> {/* Add this component at the root level */}
+      </form>
+    </div>
   );
 };
 

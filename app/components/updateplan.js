@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import axios from "axios"; 
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { baseURL } from "@/app/utils/constants";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
@@ -9,13 +9,27 @@ export default function UpdatePlan({ id, planName, price, userID, imageURL }) {
   const [newPlanName, setnewPlanName] = useState(planName);
   const [newPrice, setnewPrice] = useState(price);
   //const [newImageURL, setnewImageURL] = useState(imageURL);
-
   const [formData, setFormData] = useState({
     planName: newPlanName,
     price: newPrice,
     userID: userID,
     imageURL: imageURL,
   });
+
+  const [token, setToken] = useState("");
+
+  const router = useRouter(); //just before the handleSubmit where the agent created response is stored
+
+  useEffect(() => {
+    const tokenFromStorage = localStorage.getItem("token");
+    setToken(tokenFromStorage);
+
+    // Redirect to the login page if the user is not authenticated
+    if (!tokenFromStorage) {
+      router.push("/");
+    }
+  }, [router]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     console.log(handleChange);
@@ -26,8 +40,6 @@ export default function UpdatePlan({ id, planName, price, userID, imageURL }) {
     console.log(handleImageUpload);
     setFormData({ ...formData, imageURL: file });
   };
-
-  const router = useRouter(); //just before the handleSubmit where the agent updated response is stored
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,60 +78,62 @@ export default function UpdatePlan({ id, planName, price, userID, imageURL }) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-md mx-auto p-6 bg-sky-300  rounded-md shadow-md text-[#181818]"
-    >
-      <div className="mb-4">
-        <label className="block text-gray-700">Plan Name:</label>
-        <input
-          value={formData.planName}
-          onChange={handleChange}
-          type="text"
-          name="planName"
-          placeholder="Plan Name"
-          required
-          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Price:</label>
-        <input
-          value={formData.price}
-          onChange={handleChange}
-          type="text"
-          placeholder="Price"
-          name="price"
-          required
-          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
-        />
-      </div>
-      {/* <div className="mb-4">
+    <div className="pt-20">
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-md mx-auto p-6 bg-white  rounded-md shadow-md text-[#181818]"
+      >
+        <div className="mb-4">
+          <label className="block text-gray-700">Plan Name:</label>
+          <input
+            value={formData.planName}
+            onChange={handleChange}
+            type="text"
+            name="planName"
+            placeholder="Plan Name"
+            required
+            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-blue-800"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Price:</label>
+          <input
+            value={formData.price}
+            onChange={handleChange}
+            type="text"
+            placeholder="Price"
+            name="price"
+            required
+            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-blue-800"
+          />
+        </div>
+        {/* <div className="mb-4">
         <label className="block text-gray-700">User ID</label>
         <input
           defaultValue={userID}
           type="text"
           disabled
-          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
+          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-blue-800"
         />
       </div> */}
-      <div className="mb-4">
-        <label className="block text-gray-700">Image:</label>
-        <input
-          type="file"
-          accept=".png, .jpg, .jpeg"
-          name="image"
-          onChange={handleImageUpload}
-          className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-sky-500"
-        />
-      </div>
-      <button
-        className="w-full py-2 text-white bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600"
-        type="submit"
-      >
-        Update Plan
-      </button>
-      <ToastContainer />
-    </form>
+        <div className="mb-4">
+          <label className="block text-gray-700">Image:</label>
+          <input
+            type="file"
+            accept=".png, .jpg, .jpeg"
+            name="image"
+            onChange={handleImageUpload}
+            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-blue-800"
+          />
+        </div>
+        <button
+          className="w-full py-2 text-white bg-blue-800 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600"
+          type="submit"
+        >
+          Update Plan
+        </button>
+        <ToastContainer />
+      </form>
+    </div>
   );
 }

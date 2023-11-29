@@ -1,5 +1,4 @@
 "use client";
-
 import "tailwindcss/tailwind.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -14,8 +13,10 @@ const NavBar = () => {
   console.log(currentPath);
 
   const router = useRouter();
-  const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
-  const userRole = typeof window !== 'undefined' ? localStorage.getItem("userRole") : null;
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const userRole =
+    typeof window !== "undefined" ? localStorage.getItem("userRole") : null;
 
   const handleLogout = () => {
     const shouldLogout = window.confirm("Are you sure you want to logout?");
@@ -31,20 +32,21 @@ const NavBar = () => {
   };
 
   // Conditionally include "Agents" link based on userRole
-  const links = userRole === "admin"
-    ? [
-        { label: "Agents", href: "/agents" },
-        { label: "Plans", href: "/plans" },
-        { label: "Area", href: "/area" },
-        { label: "Collection", href: "/collection" },
-        { label: "Customer", href: "/customer" },
-      ]
-    : [
-        { label: "Plans", href: "/plans" },
-        { label: "Area", href: "/area" },
-        { label: "Collection", href: "/collection" },
-        { label: "Customer", href: "/customer" },
-      ];
+  const links =
+    userRole === "admin"
+      ? [
+          { label: "Agents", href: "/agents" },
+          { label: "Plans", href: "/plans" },
+          { label: "Area", href: "/area" },
+          { label: "Collection", href: "/collection" },
+          { label: "Customer", href: "/customer" },
+        ]
+      : [
+          { label: "Plans", href: "/plans" },
+          { label: "Area", href: "/area" },
+          { label: "Collection", href: "/collection" },
+          { label: "Customer", href: "/customer" },
+        ];
 
   // Conditionally render the NavBar based on the presence of the token
   if (!token || currentPath === "/" || currentPath === "/login") {
@@ -52,33 +54,36 @@ const NavBar = () => {
   }
 
   return (
-    <nav className="p-6 rounded-lg w-32 h-screen bg-sky-500 space-y-5">
-      <ul className="hover:text-sky-400">
-        <Link href="/">
-          <AiOutlineHome />
+    <nav className="fixed top-0 left-0 bottom-0 w-44 bg-blue-800 p-6 flex flex-col ">
+      <div className="flex-grow" />
+      <div className="text-white mb-10">
+        <Link href="/" className="flex items-center hover:text-blue-600">
+          <AiOutlineHome className="cursor-pointer " />
+          <span className="ml-2">Home</span>
         </Link>
-      </ul>
-      <ul className="space-y-5">
+      </div>
+      <div className="flex flex-col flex-grow space-y-8 ">
         {links.map((link) => (
           <Link
             key={link.href}
             className={classnames({
-              "text-sky-100": link.href === currentPath,
-              "text-zinc-950": link.href !== currentPath,
-              "hover:text-sky-400 transition-colors flex": true,
+              "text-zinc-950": link.href === currentPath,
+              "text-sky-100": link.href !== currentPath,
+              "hover:text-blue-600 transition-colors flex items-center": true,
             })}
             href={link.href}
           >
             {link.label}
           </Link>
         ))}
+        <div className="flex-grow" />
         <button
-          className="text-black p-2 rounded-lg hover:text-white transition-colors"
-          onClick={handleLogout} 
+          className="text-black p-3 rounded-md bg-white hover:text-white hover:bg-blue-800 transition-colors "
+          onClick={handleLogout}
         >
           Logout
         </button>
-      </ul>
+      </div>
     </nav>
   );
 };
