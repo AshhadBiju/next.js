@@ -13,12 +13,16 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: black;
   background-color: #dae3dc;
-  padding: 1rem;
 }
 
-.custom-width {
-  width: 89.1%; /* Adjust the percentage as needed */
-  max-width: 95%;
+.sort {
+  padding-left: 83%;
+  margin-top: -2.7%;
+  padding-bottom: 1%;
+}
+
+.path {
+  margin-right: 70%;
 }
